@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public bool isOnGround = true;
     public bool gameOver;
     public bool doubleJumpUsed = false;
+    public bool doubleSpeed = false;
     public float doubleJumpForce;
 
     void Start()
@@ -47,7 +48,21 @@ public class PlayerController : MonoBehaviour
             playerAnim.Play("Running_Jump", 3, 0f);
             playerAudio.PlayOneShot(jumpSound, 1.0f);
         }
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            doubleSpeed = true;
+            playerAnim.SetFloat("Speed_Multiplier", 2.0f);
+        }
+        else if (doubleSpeed)
+        {
+            doubleSpeed = false;
+            playerAnim.SetFloat("Speed_Multiplier", 1.0f);
+        }
+
     }
+
+
+
 
 
     private void OnCollisionEnter(Collision collision)
